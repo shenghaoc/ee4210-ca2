@@ -13,6 +13,5 @@ while True:
     filename = headers[0].split()[1]
     if filename == '/':
         filename = '/index.html'
-    connectionSocket.send('HTTP/1.0 200 OK\r\n\r\n'.encode())
-    connectionSocket.sendfile(open('.' + filename, "rb"))
+    connectionSocket.send('HTTP/1.0 200 OK\r\n\r\n'.encode() + open('.' + filename, "rb").read())
     connectionSocket.close()
