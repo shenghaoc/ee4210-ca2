@@ -7,8 +7,11 @@ serverSocket.listen(1)
 print('The server is ready to receive')
 while True:
     connectionSocket, addr = serverSocket.accept()
-    sentence = connectionSocket.recv(1024).decode()
-    capitalizedSentence = sentence.upper()
+    request = connectionSocket.recv(1024).decode()
+    headers = request.split('\r\n')
+    filename = headers[0].split()[1]
+    if filename == '/':
+        filename = '/index.html'
     connectionSocket.send('HTTP/1.0 200 OK\r\n\r\n'.encode())
-    connectionSocket.sendfile(open("index.html", "rb"))
+    connectionSocket.sendfile(open('.' + filename, "rb"))
     connectionSocket.close()
