@@ -8,6 +8,7 @@ print('The server is ready to receive')
 while True:
     connectionSocket, addr = serverSocket.accept()
     request = connectionSocket.recv(1024).decode()
+    print(request)
     headers = request.split('\r\n')
     filename = headers[0].split()[1]
     if filename == '/':
